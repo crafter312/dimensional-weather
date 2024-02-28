@@ -2,25 +2,29 @@
   "schemaVersion": 1,
   "id": "dimensionalweather",
   "version": "${version}",
-
   "name": "dimensionalweather",
   "description": "",
   "authors": [],
-  "contact": {},
-
+  "contact": {
+    "repo": "https://github.com/crafter312/dimensional-weather"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/dimensionalweather/icon.png",
-
   "environment": "*",
-  "entrypoints": {},
-
-          "mixins": [
-        "dimensionalweather.mixins.json"
-      ],
-    
+  "entrypoints": {
+    "client": [
+      "net.thesquire.dimensionalweather.client.DimensionalweatherClient"
+    ],
+    "main": [
+      "net.thesquire.dimensionalweather.Dimensionalweather"
+    ]
+  },
+  "mixins": [
+    "dimensionalweather.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-              "fabric": "*",
-          "minecraft": "${minecraft_version}"
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
   }
 }
