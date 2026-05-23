@@ -1,0 +1,73 @@
+plugins {
+    id 'fabric-loom' version '1.5-SNAPSHOT'
+    id 'maven-publish'
+}
+
+// Repositories are now defined in the root build.gradle's allprojects block.
+// If you have Fabric-specific repositories that are NOT mavenCentral(), they would go here.
+// For now, we can remove this block as Loom adds essential repos and mavenCentral is in root.
+// repositories {
+// }
+
+dependencies {
+    // Depend on the common module
+    implementation project(':common')
+
+    // To change the versions see the gradle.properties file
+    minecraft "com.mojang:minecraft:${rootProject.ext.minecraft_version}"
+    mappings "net.fabricmc:yarn:${rootProject.ext.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.ext.loader_version}"
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.ext.fabric_version}"
+}
+
+processResources {
+    inputs.property "version", rootProject.ext.mod_version
+    inputs.property "minecraft_version", rootProject.ext.minecraft_version
+    inputs.property "loader_version", rootProject.ext.loader_version
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": rootProject.ext.mod_version,
+                "minecraft_version": rootProject.ext.minecraft_version,
+                "loader_version": rootProject.ext.loader_version
+    }
+}
+
+// The Java compilation and toolchain configuration is now handled in the root build.gradle's subprojects block.
+// So, we remove the 'def targetJavaVersion', 'tasks.withType(JavaCompile)', and 'java { ... }' blocks from here.
+
+java {
+    // Set archivesBaseName for the fabric module
+    archivesBaseName = rootProject.ext.archives_base_name + "-fabric"
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${rootProject.ext.archives_base_name}-fabric"}
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            // Set artifact ID for the fabric module
+            artifactId = rootProject.ext.archives_base_name + "-fabric"
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
+}

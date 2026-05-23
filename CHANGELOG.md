@@ -1,2 +1,1 @@
-- created dimensional-weather project
-- added mixin code from [fabric-backrooms](https://github.com/crafter312/fabric-backrooms/) project
+- refactored project to support dual fabric/forge versions
