@@ -1,4 +1,4 @@
-# fabric-dimensional-weather-1.20.1
+# fabric-dimensional-weather-1.20.4
 
 CURRENT FEATURES
 ----------------
