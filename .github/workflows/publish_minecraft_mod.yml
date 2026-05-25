@@ -36,7 +36,8 @@ jobs:                                             #The place where you actually 
       - name: Build
         run: ./gradlew clean build
 
-      - name: Publish (CurseForge/Modrinth/Github)
+      # --- 1. FABRIC & QUILT PUBLISHING ---
+      - name: Publish Fabric & Quilt (CurseForge/Modrinth/Github)
         uses: Kir-Antipov/mc-publish@v3.3.0                                 #The specified MC-Publish Github Action in the version 3.3.0
         with:
           curseforge-id: 980519                                             #The id of your curseforge project
@@ -48,16 +49,40 @@ jobs:                                             #The place where you actually 
           github-tag: "v${{env.MOD_VERSION}}"
           github-token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
 
-          name: "${{env.MOD_RELEASE_NAME}}"
+          name: "${{env.MOD_RELEASE_NAME}} (Fabric/Quilt)"
           version: "${{env.MOD_VERSION}}"
           version-type: release
           changelog-file: CHANGELOG.md                                      #The file in which the changes of your new update are specified (the path starts at your project root)
 
           loaders: |
             fabric
+            quilt
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+          files: |
+            fabric/build/libs/!(*-dev|*-sources).jar { name: "dimensionalweather-fabric-quilt-${{ env.MOD_VERSION }}.jar" }
+
+      # --- 2. FORGE PUBLISHING ---
+      - name: Publish Forge (CurseForge/Modrinth/Github)
+        uses: Kir-Antipov/mc-publish@v3.3.0
+        with:
+          curseforge-id: 980519                                             #The id of your curseforge project
+          curseforge-token: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
+
+          modrinth-id: Z8Eq3K2Z                                             #The id of your modrinth project
+          modrinth-token: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
+
+          github-tag: "v${{env.MOD_VERSION}}"
+          github-token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+
+          name: "${{env.MOD_RELEASE_NAME}} (Forge)"
+          version: "${{env.MOD_VERSION}}"
+          version-type: release
+          changelog-file: CHANGELOG.md                                      #The file in which the changes of your new update are specified (the path starts at your project root)
+
+          loaders: |
             forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
           files: |
-            fabric/build/libs/!(*-dev|*-sources).jar
-            forge/build/libs/!(*-dev|*-sources).jar
+            forge/build/libs/!(*-dev|*-sources).jar { name: "dimensionalweather-forge-${{ env.MOD_VERSION }}.jar" }
