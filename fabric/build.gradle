@@ -3,6 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
+group = rootProject.ext.maven_group
+
 // Repositories are now defined in the root build.gradle's allprojects block.
 // If you have Fabric-specific repositories that are NOT mavenCentral(), they would go here.
 // For now, we can remove this block as Loom adds essential repos and mavenCentral is in root.

@@ -8,15 +8,15 @@
   "contact": {
     "repo": "https://github.com/crafter312/dimensional-weather"
   },
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "icon": "assets/dimensionalweather/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "net.thesquire.dimensionalweather.client.DimensionalweatherClient"
+      "net.thesquire.dimensionalweather.client.DimensionalWeatherClient"
     ],
     "main": [
-      "net.thesquire.dimensionalweather.Dimensionalweather"
+      "net.thesquire.dimensionalweather.DimensionalWeather"
     ]
   },
   "mixins": [

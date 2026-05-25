@@ -2,18 +2,32 @@
 
 // Define common properties for all subprojects
 ext {
+    // Shared settings
     minecraft_version = "1.20.1"
-    yarn_mappings = "1.20.1+build.10"
-    loader_version = "0.15.7"
     mod_version = "1.1-1.20.1"
     maven_group = "net.thesquire"
     archives_base_name = "dimensionalweather"
+
+    // Fabric specific settings
+    yarn_mappings = "1.20.1+build.10"
+    loader_version = "0.15.7"
     fabric_version = "0.92.2+1.20.1"
+
+    // Forge specific settings
     forge_version = "47.4.10"
+    forge_mapping_channel = "parchment"
+    forge_mapping_version = "2023.09.03-1.20.1"
+    forge_mixin_version = "0.8.5"
+    minecraft_version_range = "[1.20.1,1.21)"
+    forge_version_range = "[47,)"
+    loader_version_range = "[47,)"
+    mod_name = "Dimensional Weather"
+    mod_authors = "TheSquire"
+    mod_description = "The purpose of this mod is solely to fix https://bugs.mojang.com/browse/MC-186626."
+    mod_license = "MIT"
 }
 
-// Set the group and version for the entire project
-group = ext.maven_group
+// Set the version for the entire project, groups are set in the module-specific build.gradle files
 version = ext.mod_version
 
 allprojects {
