@@ -2,7 +2,7 @@ package net.thesquire.dimensionalweather;
 
 import net.fabricmc.api.ModInitializer;
 
-public class Dimensionalweather implements ModInitializer {
+public class DimensionalWeather implements ModInitializer {
     /**
      * Runs the mod initializer.
      */

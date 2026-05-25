@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.thesquire.dimensionalweather.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "DerivedLevelDataMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

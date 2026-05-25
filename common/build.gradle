@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+// No need for java { ... } block or targetJavaVersion here,
+// as it's handled by the root build.gradle's subprojects block.
+
+// This is where common dependencies would go, e.g.,
+// dependencies {
+//     implementation "org.example:mylibrary:1.0"
+// }
