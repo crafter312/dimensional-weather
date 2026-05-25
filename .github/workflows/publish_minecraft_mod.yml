@@ -3,10 +3,10 @@ name: Publish on Github, Curseforge & Modrinth    #The name of your Github Actio
 on: [ pull_request, workflow_dispatch ]           #When your Github Action will be executed ('pull_request' -> on every Merge(/Pull) Request; 'workflow_dispatch' -> allows manual execution through Github.com
 
 env:                                              #Environment variables that can later be referenced using ${{ env.MINECRAFT_VERSION }}. These are useful for repeating information and allow for quick changes for new mod updates
-  MINECRAFT_VERSION: 1.20.4
+  MINECRAFT_VERSION: 1.20.1
   JAVA_VERSION: 17
-  MOD_VERSION: 1.1-1.20.4
-  MOD_RELEASE_NAME: Dimensional Weather 1.1 for Minecraft 1.20.4
+  MOD_VERSION: 1.1-1.20.1
+  MOD_RELEASE_NAME: Dimensional Weather 1.1 for Minecraft 1.20.1
 
 permissions:
   contents: write
@@ -45,15 +45,17 @@ jobs:                                             #The place where you actually 
           modrinth-id: Z8Eq3K2Z                                             #The id of your modrinth project
           modrinth-token: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
 
-          github-tag: "v${{env.VERSION}}"
+          github-tag: "v${{env.MOD_VERSION}}"
           github-token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
 
-          name: "${{env.RELEASE_NAME}}"
-          version: "${{env.VERSION}}"
+          name: "${{env.MOD_RELEASE_NAME}}"
+          version: "${{env.MOD_VERSION}}"
           version-type: release
           changelog-file: CHANGELOG.md                                      #The file in which the changes of your new update are specified (the path starts at your project root)
 
           loaders: fabric,forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
-          files: "fabric/build/libs/dimensionalweather-fabric.jar,forge/build/libs/dimensionalweather.jar"
+          files: |
+            fabric/build/libs/!(*-dev|*-sources).jar
+            forge/build/libs/!(*-dev|*-sources).jar
