@@ -56,4 +56,4 @@ jobs:                                             #The place where you actually 
           loaders: fabric,forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
-          files: "fabric/build/libs/*-fabric-*.jar,forge/build/libs/*-reobf.jar"
+          files: "fabric/build/libs/dimensionalweather-fabric.jar,forge/build/libs/dimensionalweather.jar"
