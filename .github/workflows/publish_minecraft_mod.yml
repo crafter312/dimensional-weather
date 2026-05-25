@@ -37,6 +37,8 @@ jobs:                                             #The place where you actually 
         run: ./gradlew clean build
 
       # --- 1. FABRIC & QUILT PUBLISHING ---
+      - name: Rename Fabric/Quit file
+        run: mv fabric/build/libs/!(*-dev|*-sources).jar dimensionalweather-fabric-quilt-${{ env.MOD_VERSION }}.jar
       - name: Publish Fabric & Quilt (CurseForge/Modrinth/Github)
         uses: Kir-Antipov/mc-publish@v3.3.0                                 #The specified MC-Publish Github Action in the version 3.3.0
         with:
@@ -59,10 +61,11 @@ jobs:                                             #The place where you actually 
             quilt
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
-          files: |
-            fabric/build/libs/!(*-dev|*-sources).jar { name: "dimensionalweather-fabric-quilt-${{ env.MOD_VERSION }}.jar" }
+          files: dimensionalweather-fabric-quilt-${{ env.MOD_VERSION }}.jar
 
       # --- 2. FORGE PUBLISHING ---
+      - name: Rename Forge file
+        run: mv forge/build/libs/!(*-dev|*-sources).jar dimensionalweather-forge-${{ env.MOD_VERSION }}.jar
       - name: Publish Forge (CurseForge/Modrinth/Github)
         uses: Kir-Antipov/mc-publish@v3.3.0
         with:
@@ -84,5 +87,4 @@ jobs:                                             #The place where you actually 
             forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
-          files: |
-            forge/build/libs/!(*-dev|*-sources).jar { name: "dimensionalweather-forge-${{ env.MOD_VERSION }}.jar" }
+          files: dimensionalweather-forge-${{ env.MOD_VERSION }}.jar
